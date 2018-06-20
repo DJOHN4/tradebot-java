@@ -1,0 +1,32 @@
+package tradebot;
+
+import java.util.List;
+
+public class Tradebot {
+	
+	private List<IStrategy> strategyList = null;
+	
+	public void TriggerBot()
+     {
+         Thread newThread = null;
+         try
+         {
+             //Get exchange list
+             this.strategyList = ConfigManager.GetConfigurations();
+             for (int i = 0; i < this.strategyList.size(); i++)
+             {
+            	 
+                 System.out.println("Market: " + this.strategyList.get(i).GetExchangeObject().GetMarketName() +
+                     " | Exchange: " + this.strategyList.get(i).GetExchangeObject().GetExchangeName() +
+                     " | Strategy: " + this.strategyList.get(i).GetStrategyName() + " Trade triggered");
+
+                 newThread = new Thread((Runnable) this.strategyList.get(i));
+                 newThread.start();
+             }
+         }
+         catch (Exception ex)
+         {
+        	 System.out.println(ex.getMessage());
+         }
+     }
+}
