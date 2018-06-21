@@ -1,45 +1,57 @@
 package tradebot;
 
-public static class ConfigManager {
-	
-	public static JObject jsonObject = null;
-    public static string basePath = System.IO.Directory.GetCurrentDirectory().ToString();
-    public static string configPath = ConfigurationManager.AppSettings[Constants.Directories.CONFIGPATH].ToString();
-    public static string configFile = basePath + configPath + Constants.Directories.CONFIGFILE;
-    public static int threadSleep = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.ThreadProperties.THREADSLEEP].ToString());
-    
+import java.io.*;
+import java.util.*;
+import com.fasterxml.jackson.databind.*;
 
-    public static List<IStrategy> GetConfigurations()
-    {
-        List<IStrategy> strategyList = new List<IStrategy>();
-        IFactory xChangeObjectFactory = null;
-        IFactory strategyObjectFactory = null;
-        IStrategy stratObj = null;
-        IExchange xChangeObj = null;
+public class ConfigManager {
 
-        using (StreamReader file = File.OpenText(configFile))
-        using (JsonTextReader reader = new JsonTextReader(file))
-        {
-            jsonObject = (JObject)JToken.ReadFrom(reader);
-        }
+	public static String basePath = System.getProperty("user.dir");
+	public static String configPath = "\\src\\tradebot";
+	public static String iniFile = (basePath + (configPath + "\\config.ini" /* + Constants.Directories.CONFIGFILE) */));
+	public static String configFile = (basePath + (configPath + "\\config.json" /* + Constants.Directories.CONFIGFILE) */));
+	public static int threadSleep = 1000;
 
-        JArray xngList = (JArray)jsonObject[Constants.Exchanges.SECTIONNAME];
-            foreach (JObject xngItem in xngList)
-            {
-                xChangeObjectFactory = new ExchangeFactory();
-                xChangeObj = xChangeObjectFactory.GetObject<IExchange>(xngItem);
-                JArray strgyList = (JArray)xngItem[Constants.Strategies.SECTIONNAME];
-                foreach (JObject strgyItem in strgyList)
-                {
-                    strategyObjectFactory = new StrategyFactory();
-                    stratObj = strategyObjectFactory.GetObject<IStrategy>(strgyItem);
-                    stratObj.SetExchangeDetails(xChangeObj);
-                    stratObj.SetStrategyId();
-                    strategyList.Add(stratObj);
-                }
-            }
-        return strategyList;
-    }
+	public static List<IStrategy> GetConfigurations() {
+		 List<IStrategy> strategyList=null;
+		try {
+		strategyList = new ArrayList<IStrategy>();
+		ObjectMapper mapper = new ObjectMapper();
+		Properties prop = new Properties();
+		InputStream input = null;
+		
+		input = new FileInputStream(iniFile);
+
+		// load a ini properties file
+		prop.load(input);
+
+		// get the property value and print it out
+		System.out.println(prop.getProperty("ThreadSleep"));
+		System.out.println(prop.getProperty("MongoServer"));
+		System.out.println(prop.getProperty("DBName"));
+		
+		//JSON from file to Object
+		User user = mapper.readValue(new File(configFile), User.class);
+
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+		return strategyList;
+		
+	}
+
 }
 
-}
+/*
+ * 
+ * 
+ * 
+ * IFactory xChangeObjectFactory = null; IFactory strategyObjectFactory = null;
+ * IStrategy stratObj = null; IExchange xChangeObj = null; StreamReader file =
+ * File.OpenText(configFile); JsonTextReader reader = new JsonTextReader(file);
+ * jsonObject = ((JObject)(JToken.ReadFrom(reader))); JArray xngList =
+ * ((JArray)(jsonObject[Constants.Exchanges.SECTIONNAME]));
+ * 
+ */
