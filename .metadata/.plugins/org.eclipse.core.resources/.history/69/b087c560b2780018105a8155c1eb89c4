@@ -1,0 +1,72 @@
+package nd.trading.utilities;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Date;
+
+public class TokenClient extends ApiClient implements IApiClient {
+	 // Dictionary<string, string> defaultHeaders = null;
+
+      public TokenClient(AuthInfo authInfo, /*Dictionary<string, string> headers,*/ boolean addDefaultHeaders) {
+    	  super(authInfo.baseUrl, addDefaultHeaders);
+          //_authToken = authInfo.Token;
+         // defaultHeaders = headers;
+      }
+      private void ClearHeaders()
+      {
+         /* base._httpClient.DefaultRequestHeaders.Clear();
+          base.ConfigureHttpClient();
+
+          foreach (KeyValuePair<string, string> hdr in defaultHeaders)
+          {
+              base._httpClient.DefaultRequestHeaders.Add(hdr.Key, hdr.Value);
+          }*/
+      }
+
+	@Override
+	public String CallApi(String xChangeName, Methods method, String endpoint,
+			boolean isSigned, String parameters, String body)  {
+		
+		 ClearHeaders();
+
+         //Console.WriteLine(DateTime.Now.ToString());
+
+         String finalEndpoint = endpoint + (parameters=="" ? "" : ("?" + parameters));
+
+         if (isSigned)
+         {
+             parameters += (parameters!="" ? "&timestamp=" : "timestamp=") + GenerateTimeStamp(new Date());
+         }
+
+     /*    var request = new HttpRequestMessage
+         {
+             RequestUri = new Uri(new Uri(this._baseUrl, UriKind.Absolute), finalEndpoint),
+             Method = Common.CreateHttpMethod(method.ToString()),
+             Content = String.IsNullOrEmpty(body) ? null : new StringContent(body, Encoding.UTF8, "application/json")
+         };
+
+         var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
+         var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+         if (response.StatusCode == HttpStatusCode.BadRequest)
+         {
+             Common.LogMessageToFile(result);
+         }
+         response.EnsureSuccessStatusCode();*/
+         
+         try{
+        	 URI baseUri=new URI(this._baseUrl);
+         URL url = null;
+         HttpURLConnection cn=(HttpURLConnection)url.openConnection();
+         
+         }catch(Exception ex){
+        	 
+         }
+         
+	
+		return null;
+	}
+
+}

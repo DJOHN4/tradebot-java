@@ -1,0 +1,17 @@
+package nd.trading.bot.models;
+
+public class ExchangeConfig implements IConfig {
+
+	public String Name { get; set; }
+    public String Market { get; set; }
+    public String BaseUrl { get; set; }
+    public String Key { get; set; }
+    public String Secret { get; set; }
+    public String Passphrase { get; set; }
+    public String Token { get; set; }
+    public String TickerList { get; set; }
+    public String Currencies { get; set; }
+    public bool ActiveStatus { get; set; }
+    public List<StrategyConfig> Strategies { get; set; }
+    
+}

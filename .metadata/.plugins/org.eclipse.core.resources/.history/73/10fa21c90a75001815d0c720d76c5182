@@ -1,0 +1,19 @@
+package nd.trading.bot.models;
+
+public class PositionConfig {
+	 public String Symbol;
+     public String BuyMode;
+     public String SellMode;
+     public float  FixedProfitValue;
+     public float  FixedBuyPriceValue;
+     public float  PriceDownPercent;
+     public float  SellProfitPercent;
+     public String ThresholdMode;
+     public float  Value;
+     public float  InitialUnits;
+     public float  ExtrapolateLevel;
+     public float  ExtrapolateUnitFactor;
+     public float  PriceRangeStart;
+     public float  PriceRangeEnd;
+     public float  MinQuantity;
+}

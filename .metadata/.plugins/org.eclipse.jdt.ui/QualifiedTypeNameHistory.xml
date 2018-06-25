@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="nd.trading.bot.models.ConfigRoot"/>
+<fullyQualifiedTypeName name="nd.trading.bot.core.IStrategy"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
+<fullyQualifiedTypeName name="com.mongodb.client.MongoDatabase"/>
+<fullyQualifiedTypeName name="com.mongodb.client.MongoCollection"/>
+<fullyQualifiedTypeName name="com.mongodb.DB"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.Entity"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
+<fullyQualifiedTypeName name="nd.trading.bot.engine.ConfigManager"/>
+<fullyQualifiedTypeName name="nd.trading.db.DbManager"/>
+<fullyQualifiedTypeName name="org.bson.types.ObjectId"/>
+<fullyQualifiedTypeName name="org.bson.codecs.pojo.PojoCodecProvider"/>
+<fullyQualifiedTypeName name="org.bson.codecs.configuration.CodecRegistry"/>
+<fullyQualifiedTypeName name="nd.trading.bot.models.StrategyInfo"/>
+<fullyQualifiedTypeName name="nd.trading.bot.core.Exchange"/>
+<fullyQualifiedTypeName name="nd.trading.bot.models.IConfig"/>
+<fullyQualifiedTypeName name="nd.trading.bot.objectfactory.StrategyFactory"/>
+<fullyQualifiedTypeName name="nd.trading.bot.objectfactory.ExchangeFactory"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="nd.trading.platform.oanda.OandaExchange"/>
+<fullyQualifiedTypeName name="nd.trading.bot.models.ExchangeConfig"/>
+<fullyQualifiedTypeName name="java.util.Dictionary"/>
+<fullyQualifiedTypeName name="nd.trading.bot.models.StrategyConfig"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.ForexStock"/>
+<fullyQualifiedTypeName name="nd.trading.bot.core.Forexpolate"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.Position"/>
+<fullyQualifiedTypeName name="nd.trading.bot.core.IExchange"/>
+<fullyQualifiedTypeName name="nd.trading.platform.oanda.OandaAccount"/>
+<fullyQualifiedTypeName name="nd.trading.bot.models.Constants"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.ForexPosition"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.Account"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.Order"/>
+<fullyQualifiedTypeName name="javax.print.attribute.Size2DSyntax"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="nd.trading.platform.models.Quote"/>
+<fullyQualifiedTypeName name="java.net.HttpURLConnection"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.net.URI"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+</qualifiedTypeNameHistroy>

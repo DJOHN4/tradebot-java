@@ -1,0 +1,5 @@
+package nd.trading.platform.models;
+
+public @interface Id {
+
+}

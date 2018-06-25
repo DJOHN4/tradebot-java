@@ -1,0 +1,9 @@
+package nd.trading.bot.models;
+
+public class AccountConfig implements IConfig {
+
+	public String name;
+	public String role;
+	public String startStatus;
+	public boolean activeStatus;
+}

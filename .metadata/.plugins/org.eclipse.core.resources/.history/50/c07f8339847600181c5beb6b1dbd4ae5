@@ -1,0 +1,12 @@
+package nd.trading.utilities;
+
+public class ApiClient implements IApiClient {
+
+	@Override
+	public String CallApi(String xChangeName, Methods method, String endpoint,
+			boolean isSigned, String parameters, String body) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

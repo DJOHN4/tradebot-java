@@ -1,0 +1,33 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+import nd.trading.platform.models.ForexStock;
+
+public class Forexpolate extends Strategy implements Runnable{
+	 private String lastTransId="";
+     private ForexStock fxStock;
+
+	public String getLastTransId() {
+		return lastTransId;
+	}
+
+	public void setLastTransId(String lastTransId) {
+		this.lastTransId = lastTransId;
+	}
+	public ForexStock getFxStock() {
+		return fxStock;
+	}
+
+	public void setFxStock(ForexStock fxStock) {
+		this.fxStock = fxStock;
+	}
+	
+	public Forexpolate(StrategyConfig config)
+    { super(config);}
+	
+	 public void run() {
+	        System.out.println("Hello from a derived thread!");
+	    }
+	
+	
+}

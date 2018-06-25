@@ -1,0 +1,23 @@
+package nd.trading.utilities;
+
+public class ApiClient  {
+
+	
+	 public String CreateHttpMethod(String method)
+     {
+        /*     switch (method.ToUpper())
+             {
+                 case "DELETE":
+                     return HttpMethod.Delete;
+                 case "POST":
+                     return HttpMethod.Post;
+                 case "PUT":
+                     return HttpMethod.Put;
+                 case "GET":
+                     return HttpMethod.Get;
+                 default:
+                     throw new NotImplementedException();
+             }*/
+		 return "GET";
+     }
+}

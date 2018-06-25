@@ -1,0 +1,41 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+import nd.trading.platform.models.*;
+
+
+public abstract class Strategy  {
+
+	private String name;
+    protected float currentPrice;
+    protected int exitLoop;
+    protected IExchange exchangeObject;
+    protected Account primaryAccountInfo;
+    protected StrategyConfig strategyInfo;
+    protected String myStrategyJson;
+    protected Position stockObject;
+    
+	public Strategy(StrategyConfig config){
+		 this.strategyInfo = config;
+         //this.myStrategyJson = JsonConvert.SerializeObject(this.StrategyInfo);
+         this.exitLoop = 0;
+         this.setName(config.Name);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public IExchange getExchangeObject() {
+		return this.exchangeObject;
+	}
+
+	public void setExchangeObject(IExchange obj) {
+		this.exchangeObject = obj;
+	}
+
+}

@@ -1,0 +1,24 @@
+package nd.trading.platform.oanda;
+
+import nd.trading.bot.core.Exchange;
+import nd.trading.bot.models.*;
+
+public class OandaExchange extends Exchange {
+
+	//private IApiClient apiClient = null;
+    private String accountId = "";
+
+    public OandaExchange(ExchangeConfig config)
+    {
+    	super(config);
+   /*     Dictionary<String, String> headers = new Dictionary<String, String>();
+        
+        {
+            { "Authorization", "Bearer "  + this.AuthVal.Token}/*,
+            { "Accept-Encoding", "gzip, deflate" },*/
+       // };
+
+        //apiClient = new TokenClient(this.AuthVal, headers);*/
+     }
+    
+}

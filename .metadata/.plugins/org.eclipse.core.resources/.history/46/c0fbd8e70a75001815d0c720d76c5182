@@ -1,0 +1,7 @@
+package nd.trading.bot.models;
+
+public class ConfigRoot implements IConfig {
+
+	public List<ExchangeConfig> Exchanges { get; set; }
+	
+}

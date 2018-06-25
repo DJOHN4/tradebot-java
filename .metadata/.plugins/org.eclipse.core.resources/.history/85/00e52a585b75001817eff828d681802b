@@ -1,0 +1,5 @@
+package nd.trading.db;
+
+public class DbManager {
+
+}

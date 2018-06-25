@@ -1,0 +1,19 @@
+package nd.trading.platform.models;
+
+import java.util.Date;
+
+public class Order {
+	 public String OrderId ;
+     public String OrderType ;
+     public String Side ;
+     public String Symbol ;
+     public float Count ;
+     public float Price ;
+     public float Cost ;
+     public float Brokerage ;
+     public float PnL ;
+     public String Status ;
+     public boolean Settled ;
+     public String TradeId ;
+     public Date DoneAt ;
+}

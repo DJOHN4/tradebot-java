@@ -1,0 +1,52 @@
+package nd.trading.db;
+
+//import org.bson.Document;
+
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+
+import nd.trading.bot.engine.ConfigManager;
+import nd.trading.platform.models.Entity;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class DbManager {
+
+	private static String connectionString = ConfigManager.mongoServer;
+	public static String DatabaseName = ConfigManager.mongoDbName;
+
+	private static MongoClient client = null;
+	private static MongoDatabase db = null;
+
+	public static MongoClient getMongoClient() {
+		if (client == null) {
+			client = new MongoClient(connectionString);
+		}
+
+		return client;
+	}
+
+	public static MongoDatabase getMongoDatabase() {
+		if (db == null) {
+			db = DbManager.getMongoClient().getDatabase(DatabaseName);
+			CodecRegistry pj=fromRegistries(MongoClient.getDefaultCodecRegistry(),
+					PojoCodecProvider.builder().automatic(true).build());
+			db.withCodecRegistry(pj);
+		}
+		return db;
+	}
+
+	public static MongoCollection<Entity> getCollection(Entity obj) {
+		MongoCollection<Entity> col = getMongoDatabase()
+				.getCollection(obj.getClass().getSimpleName(), Entity.class);
+		return col;
+	}
+
+	public static <T> boolean insertEntity(Entity entity) {
+		getCollection(entity).insertOne(entity);
+		return true;
+	}
+
+}

@@ -1,0 +1,7 @@
+package nd.trading.platform.oanda;
+
+import nd.trading.bot.core.Exchange;
+
+public class OandaExchange extends Exchange {
+
+}

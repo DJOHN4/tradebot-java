@@ -1,0 +1,36 @@
+package nd.trading.db;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class DbManager {
+
+	private static String connectionString = "";
+	public static String DatabaseName = "";
+
+	private MongoClient client = null;
+	private MongoDatabase db = null;
+	private MongoCollection col = null;
+
+	public MongoClient getMongoClient() {
+		if (client == null) {
+			client = new MongoClient(connectionString);
+		}
+
+		return client;
+	}
+
+	public MongoDatabase getMongoDatabase() {
+		if (db == null) {
+			db = client.getDatabase(DatabaseName);
+		}
+		return db;
+	}
+	
+	public static MongoCollection<T> getCollection<T>() where T : Entity
+    {
+        return DBManager.DB.GetCollection<T>(typeof(T).Name);
+    }
+
+}

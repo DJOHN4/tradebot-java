@@ -1,0 +1,67 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+import nd.trading.platform.models.*;
+
+
+public abstract class Strategy implements IStrategy, Runnable  {
+
+	private String name;
+    protected float currentPrice;
+    protected int exitLoop;
+    protected IExchange exchangeObject;
+    protected Account primaryAccountInfo;
+    protected StrategyConfig strategyInfo;
+    protected String myStrategyJson;
+    protected Position stockObject;
+    
+	public Strategy(StrategyConfig config){
+		 this.strategyInfo = config;
+         //this.myStrategyJson = JsonConvert.SerializeObject(this.StrategyInfo);
+         this.exitLoop = 0;
+         this.setName(config.Name);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStrategyName() {
+		return this.getName();
+	}
+
+
+	public void setExchangeDetails(IExchange xChange) {
+		exchangeObject=xChange;
+
+	}
+
+
+	public void setStrategyId() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public String getStrategyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public IExchange getExchangeObject() {
+		return exchangeObject;
+	}
+	
+	 public void run() {
+	        System.out.println("Hello from a thread!");
+	    }
+
+
+
+
+}

@@ -1,0 +1,91 @@
+package nd.trading.platform.oanda;
+
+import java.util.List;
+
+import nd.trading.bot.core.Exchange;
+import nd.trading.bot.core.IExchange;
+import nd.trading.bot.models.*;
+import nd.trading.platform.models.Account;
+import nd.trading.platform.models.ForexStock;
+import nd.trading.platform.models.Order;
+import nd.trading.platform.models.Position;
+import nd.trading.platform.models.StockData;
+
+public class OandaExchange extends Exchange implements IExchange {
+
+	//private IApiClient apiClient = null;
+    private String accountId = "";
+
+    public OandaExchange(ExchangeConfig config)
+    {
+    	super(config);
+   /*     Dictionary<String, String> headers = new Dictionary<String, String>();
+        
+        {
+            { "Authorization", "Bearer "  + this.AuthVal.Token}/*,
+            { "Accept-Encoding", "gzip, deflate" },*/
+       // };
+
+        //apiClient = new TokenClient(this.AuthVal, headers);*/
+     }
+
+	@Override
+	public String getExchangeName() {
+		return getName();
+	}
+
+	@Override
+	public String[] GetTickerList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public float GetCurrentPrice(String symbol, String mode) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean PlaceOrder(Order order) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Account GetAccountDetails(String accountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Position> GetOpenPositions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StockData> GetOpenTrades(String symbol) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public float GetLastTradePrice(String tradeId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float GetAvailableMargin() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean CloseTrade(ForexStock fxS) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
+}

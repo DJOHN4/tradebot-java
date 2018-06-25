@@ -1,0 +1,29 @@
+package nd.trading.utilities;
+
+public class TokenClient extends ApiClient implements IApiClient {
+	 // Dictionary<string, string> defaultHeaders = null;
+
+      public TokenClient(AuthInfo authInfo, /*Dictionary<string, string> headers,*/ boolean addDefaultHeaders) {
+    	  super(authInfo.baseUrl, addDefaultHeaders);
+          //_authToken = authInfo.Token;
+         // defaultHeaders = headers;
+      }
+      private void ClearHeaders()
+      {
+         /* base._httpClient.DefaultRequestHeaders.Clear();
+          base.ConfigureHttpClient();
+
+          foreach (KeyValuePair<string, string> hdr in defaultHeaders)
+          {
+              base._httpClient.DefaultRequestHeaders.Add(hdr.Key, hdr.Value);
+          }*/
+      }
+
+	@Override
+	public String CallApi(String xChangeName, Methods method, String endpoint,
+			boolean isSigned, String parameters, String body) {
+	
+		return null;
+	}
+
+}
