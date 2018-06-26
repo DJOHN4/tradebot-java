@@ -10,7 +10,7 @@ public interface IExchange {
      String getMarketName();
      Account getAccountDetails(String accountId);
      void getAccountChanges(Account acnt);
-     List<Quote> getQuoteList(String[] tickerList);
+     List<Quote> getQuoteList(String[] tickerList, String accountId);
      boolean placeOrder(Order order);
      float getCurrentPrice(String symbol, String mode);
      boolean closeTrade(ForexStock fxS);

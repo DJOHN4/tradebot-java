@@ -14,26 +14,10 @@ import com.fasterxml.jackson.databind.*;
 public class ConfigManager {
 
 	public static String basePath = System.getProperty("user.dir");
-	public static String configPath = "\\config";
-	public static String iniFile = (basePath + (configPath + "\\config.ini" /*
-																			 * +
-																			 * Constants
-																			 * .
-																			 * Directories
-																			 * .
-																			 * CONFIGFILE
-																			 * )
-																			 */));
-	public static String configFile = (basePath + (configPath + "\\config.json" /*
-																				 * +
-																				 * Constants
-																				 * .
-																				 * Directories
-																				 * .
-																				 * CONFIGFILE
-																				 * )
-																				 */));
-	public static int threadSleep = 1000;
+	public static String iniFile = (basePath + "\\config\\" + Constants.Directories.INIFILE);
+	public static String configPath = "";
+	public static String configFile = "";
+	public static int threadSleep = 0;
 	public static String mongoServer = "";
 	public static String mongoDbName = "";
 
@@ -46,20 +30,19 @@ public class ConfigManager {
 			InputStream input = null;
 
 			input = new FileInputStream(iniFile);
-
-			// load a ini properties file
 			prop.load(input);
 
 			// get the property value and print it out
-			System.out.println(prop.getProperty("ThreadSleep"));
-			mongoServer = prop.getProperty("MongoServer");
-			mongoDbName = prop.getProperty("DBName");
+			threadSleep = Integer.parseInt(prop.getProperty(Constants.ThreadProperties.THREADSLEEP));
+			System.out.println(prop.getProperty(Constants.ThreadProperties.THREADSLEEP));
+			mongoServer = prop.getProperty(Constants.DB.SERVERNAME);
+			mongoDbName = prop.getProperty(Constants.DB.DBNAME);
+			configPath = prop.getProperty(Constants.Directories.CONFIGPATH);
+			configFile = basePath + configPath + prop.getProperty(Constants.Directories.CONFIGFILE);
 
 			// JSON from file to Object
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-					false);
-			ConfigRoot rootConfig = mapper.readValue(new File(configFile),
-					ConfigRoot.class);
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			ConfigRoot rootConfig = mapper.readValue(new File(configFile), ConfigRoot.class);
 
 			ExchangeConfig xChng = null;
 			StrategyConfig strgyItem = null;
@@ -67,18 +50,17 @@ public class ConfigManager {
 			ExchangeFactory xChangeObjectFactory = null;
 			IExchange xChangeObj = null;
 			IStrategy stratObj = null;
-			
+
 			for (int i = 0; i < rootConfig.Exchanges.size(); i++) {
 				xChng = rootConfig.Exchanges.get(i);
-				if (xChng.ActiveStatus) {
+				if (xChng.activeStatus) {
 					xChangeObjectFactory = new ExchangeFactory();
 					xChangeObj = xChangeObjectFactory.getObject(xChng);
-					for (int j = 0; j < xChng.Strategies.size(); j++) {
-						strgyItem = xChng.Strategies.get(j);
+					for (int j = 0; j < xChng.strategies.size(); j++) {
+						strgyItem = xChng.strategies.get(j);
 						strategyObjectFactory = new StrategyFactory();
 						if (strgyItem.activeStatus) {
-							stratObj = strategyObjectFactory
-									.getObject(strgyItem);
+							stratObj = strategyObjectFactory.getObject(strgyItem);
 							stratObj.setExchangeDetails(xChangeObj);
 							strategyList.add(stratObj);
 						}

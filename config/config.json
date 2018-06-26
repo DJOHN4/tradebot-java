@@ -1,296 +1,305 @@
 {
-  "Exchanges": [
-    {
-      "Name": "Oanda",
-      "Market": "Forex",
-      "BaseUrl": "https://api-fxpractice.oanda.com",
-      "Key": "",
-      "Secret": "",
-      "Passphrase": "",
-      "Token": "8d3c0b5d103d77462bd85dc55d2a6e1a-477dca1ec1d288c9ad17c7b2b7a04830",
-      "TickerList": "EUR_USD,USD_SGD,USD_CAD,NZD_USD,AUD_USD,GBP_USD",
-      "Currencies": "USD",
-	  "ActiveStatus": true,
-      "Strategies": [
-        {
-          "Name": "Forexpolate",
-          "SubName": "FP_NoThresholdBuy",
-		  "ActiveStatus": true,
-          "Accounts": [
-            {
-              "Id": "101-001-7158615-001",
-              "Name": "Primary",
-              "Type": "Primary"
-            },
-            {
-              "Id": "101-001-7158615-002",
-              "Name": "User_Backup1",
-              "Type": "Backup"
-            },
-            {
-              "Id": "101-001-7158615-003",
-              "Name": "User_Backup2",
-              "Type": "Backup"
-            },
-            {
-              "Id": "101-001-7158615-004",
-              "Name": "User_QuickBuy",
-              "Type": "Quickbuy"
-            },
-            {
-              "Id": "101-001-7158615-005",
-              "Name": "User_ShortBuy",
-              "Type": "Shortbuy"
-            }
-          ],
-          "MinPositionLevelPercent": "10",
-          "MaxPositionCount": "6",
-          "ExtrapolateValue": "0",
-          "OrderType": "Market",
-          "Users": [
-            {
-              "Name": "Dinu John",
-              "Role": "Admin",
-              "StarStatus": "Gold",
-			  "ActiveStatus": true,
-              "BuyList": [
-                {
-                  "Symbol": "EUR_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "50",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "USD_CAD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "50",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "GBP_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "50",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                }
-              ]
-            },
-            {
-              "Name": "Arun Shankar",
-              "Role": "Admin",
-              "StarStatus": "Gold",
-			  "ActiveStatus": false,
-              "BuyList": [
-                {
-                  "Symbol": "AUD_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "NZD_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Name": "Forexpolate",
-          "SubName": "FP_AvgThresholdBuy",
-		  "ActiveStatus": false,
-          "Accounts": [
-            {
-              "Id": "101-001-7158615-006",
-              "Name": "User_Primary",
-              "Type": "Primary"
-            },
-            {
-              "Id": "101-001-7158615-007",
-              "Name": "User_Backup1",
-              "Type": "Backup"
-            },
-            {
-              "Id": "101-001-7158615-008",
-              "Name": "User_Backup2",
-              "Type": "Backup"
-            },
-            {
-              "Id": "101-001-7158615-009",
-              "Name": "User_QuickBuy",
-              "Type": "Quickbuy"
-            },
-            {
-              "Id": "101-001-7158615-010",
-              "Name": "User_ShortBuy",
-              "Type": "Shortbuy"
-            }
-          ],
-          "MinPositionLevelPercent": "100",
-          "MaxPositionCount": "6",
-          "ExtrapolateValue": "0",
-          "OrderType": "Market",
-          "Users": [
-            {
-              "Name": "Dinu John",
-              "Role": "Admin",
-              "StarStatus": "Gold",
-			  "ActiveStatus": true,
-              "BuyList": [
-                {
-                  "Symbol": "EUR_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "USD_CAD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "GBP_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                }
-              ]
-            },
-            {
-              "Name": "Arun Shankar",
-              "Role": "Admin",
-              "StarStatus": "Gold",
-			  "ActiveStatus": false,
-              "BuyList": [
-                {
-                  "Symbol": "AUD_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                },
-                {
-                  "Symbol": "NZD_USD",
-                  "BuyMode": "FIXED",
-                  "SellMode": "FIXED",
-                  "FixedProfitValue": "0.30",
-                  "FixedBuyPriceValue": "0.50",
-                  "PriceDownPercent": "0.0",
-                  "SellProfitPercent": "0.0",
-                  "ThresholdMode": "",
-                  "Value": "0.0",
-                  "InitialUnits": "100",
-                  "ExtrapolateLevel": "12",
-                  "ExtrapolateUnitFactor": "1",
-                  "PriceRangeStart": "0.0",
-                  "PriceRangeEnd": "0.0",
-                  "MinQuantity": "1"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"Exchanges": [
+		{
+			"Name": "Oanda",
+			"Market": "Forex",
+			"BaseUrl": "https://api-fxpractice.oanda.com",
+			"Key": "",
+			"Secret": "",
+			"Passphrase": "",
+			"Token": "8d3c0b5d103d77462bd85dc55d2a6e1a-477dca1ec1d288c9ad17c7b2b7a04830",
+			"Tickers": "EUR_USD,USD_SGD,USD_CAD,NZD_USD,AUD_USD,GBP_USD",
+			"Currencies": "USD",
+			"ActiveStatus": true,
+			"Strategies": [
+				{
+					"Name": "Forexpolate",
+					"SubName": "FP_NoThresholdBuy",
+					"ActiveStatus": true,
+					"Accounts": [
+						{
+							"Id": "101-001-7158615-001",
+							"Name": "User_Longbuy",
+							"Type": "Longbuy"
+						},
+						{
+							"Id": "101-001-7158615-002",
+							"Name": "User_Shortbuy",
+							"Type": "Shortbuy"
+						},
+						{
+							"Id": "101-001-7158615-003",
+							"Name": "User_Backup1",
+							"Type": "LongBackup"
+						},
+						{
+							"Id": "101-001-7158615-004",
+							"Name": "User_Backup2",
+							"Type": "ShortBackup"
+						},
+						{
+							"Id": "101-001-7158615-005",
+							"Name": "User_Quickbuy",
+							"Type": "Quickbuy"
+						}
+					],
+					"MinPositionLevelPercent": "10",
+					"MaxPositionCount": "6",
+					"OrderType": "Market",
+					"Users": [
+						{
+							"Name": "Dinu John",
+							"Role": "Admin",
+							"StarStatus": "Gold",
+							"ActiveStatus": true,
+							"BuyList": [
+								{
+									"Symbol": "EUR_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "50",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "USD_CAD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "50",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "GBP_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "50",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								}
+							]
+						},
+						{
+							"Name": "Arun Shankar",
+							"Role": "Admin",
+							"StarStatus": "Gold",
+							"ActiveStatus": false,
+							"BuyList": [
+								{
+									"Symbol": "AUD_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "NZD_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								}
+							]
+						}
+					]
+				},
+				{
+					"Name": "Forexpolate",
+					"SubName": "FP_AvgThresholdBuy",
+					"ActiveStatus": false,
+					"Accounts": [
+						{
+							"Id": "101-001-7158615-006",
+							"Name": "User_Longbuy",
+							"Type": "Longbuy"
+						},
+						{
+							"Id": "101-001-7158615-007",
+							"Name": "User_Shortbuy",
+							"Type": "Shortbuy"
+						},
+						{
+							"Id": "101-001-7158615-008",
+							"Name": "User_Backup1",
+							"Type": "LongBackup"
+						},
+						{
+							"Id": "101-001-7158615-009",
+							"Name": "User_Backup2",
+							"Type": "ShortBackup"
+						},
+						{
+							"Id": "101-001-7158615-010",
+							"Name": "User_Quickbuy",
+							"Type": "Quickbuy"
+						}
+					],
+					"MinPositionLevelPercent": "100",
+					"MaxPositionCount": "6",
+					"ExtrapolateValue": "0",
+					"OrderType": "Market",
+					"Users": [
+						{
+							"Name": "Dinu John",
+							"Role": "Admin",
+							"StarStatus": "Gold",
+							"ActiveStatus": true,
+							"BuyList": [
+								{
+									"Symbol": "EUR_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "USD_CAD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "GBP_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								}
+							]
+						},
+						{
+							"Name": "Arun Shankar",
+							"Role": "Admin",
+							"StarStatus": "Gold",
+							"ActiveStatus": false,
+							"BuyList": [
+								{
+									"Symbol": "AUD_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								},
+								{
+									"Symbol": "NZD_USD",
+									"BuyMode": "FIXED",
+									"SellMode": "FIXED",
+									"FixedProfitValue": "0.30",
+									"FixedBuyPriceValue": "0.50",
+									"PriceDownPercent": "0.0",
+									"SellProfitPercent": "0.0",
+									"ThresholdMode": "",
+									"Value": "0.0",
+									"InitialUnits": "100",
+									"ExtrapolateLevel": "12",
+									"ExtrapolateUnitFactor": "1",
+									"PriceRangeStart": "0.0",
+									"PriceRangeEnd": "0.0",
+									"MinQuantity": "1",
+									"TradeProcess": true
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
 }

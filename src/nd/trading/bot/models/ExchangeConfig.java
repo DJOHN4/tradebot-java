@@ -5,20 +5,20 @@ import java.util.List;
 
 public class ExchangeConfig implements IConfig {
 
-	public String Name ;
-    public String Market ;
-    public String BaseUrl ;
-    public String Key ;
-    public String Secret ;
-    public String Passphrase ;
-    public String Token ;
-    public String TickerList ;
-    public String Currencies ;
-    public boolean ActiveStatus ;
-    public List<StrategyConfig> Strategies ;
+	public String name ;
+    public String market ;
+    public String baseUrl ;
+    public String key ;
+    public String secret ;
+    public String passphrase ;
+    public String token ;
+    public String tickers ;
+    public String currencies ;
+    public boolean activeStatus ;
+    public List<StrategyConfig> strategies ;
     
     public ExchangeConfig(){
-    	Strategies=new ArrayList<StrategyConfig>();
+    	strategies=new ArrayList<StrategyConfig>();
 	}
     
 }

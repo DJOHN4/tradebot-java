@@ -1,19 +1,20 @@
 package nd.trading.bot.models;
 
 public class PositionConfig  implements IConfig {
-	 public String Symbol;
-     public String BuyMode;
-     public String SellMode;
-     public float  FixedProfitValue;
-     public float  FixedBuyPriceValue;
-     public float  PriceDownPercent;
-     public float  SellProfitPercent;
-     public String ThresholdMode;
-     public float  Value;
-     public float  InitialUnits;
-     public float  ExtrapolateLevel;
-     public float  ExtrapolateUnitFactor;
-     public float  PriceRangeStart;
-     public float  PriceRangeEnd;
-     public float  MinQuantity;
+	 public String symbol;
+     public String buyMode;
+     public String sellMode;
+     public float  fixedProfitValue;
+     public float  fixedBuyPriceValue;
+     public float  priceDownPercent;
+     public float  sellProfitPercent;
+     public String thresholdMode;
+     public float  value;
+     public float  initialUnits;
+     public float  extrapolateLevel;
+     public float  extrapolateUnitFactor;
+     public float  priceRangeStart;
+     public float  priceRangeEnd;
+     public float  minQuantity;
+     public boolean tradeProcess;
 }

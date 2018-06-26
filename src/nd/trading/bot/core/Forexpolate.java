@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import nd.trading.bot.models.Constants;
+import nd.trading.bot.models.PositionConfig;
 import nd.trading.bot.models.StrategyConfig;
 import nd.trading.platform.models.ForexPosition;
 import nd.trading.platform.models.ForexStock;
@@ -14,6 +15,7 @@ import nd.trading.platform.oanda.*;
 public class Forexpolate extends Strategy implements Runnable, IStrategy {
 	private String lastTransId = "";
 	private ForexStock fxStock;
+	private PositionConfig posConfig=null;
 	
 	public Forexpolate(StrategyConfig config) {
 		super(config);
@@ -71,6 +73,7 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 			if (IsEnoughPositionToTrade()) {
 				for (int iPos = ((OandaAccount) primaryAccountInfo).PositionList.size() - 1; iPos >= 0; --iPos) {
 					this.stockObject = ((OandaAccount) primaryAccountInfo).PositionList.get(iPos);
+					posConfig=this.getPositionConfig(this.stockObject.Symbol);
 
 					if (isReadyToSell()) {
 						if (placeSellOrder()) // Do we need to call account
@@ -83,9 +86,9 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 					} else {
 						if (isReadyToAddMore())
 							addMoreStocks(); // Account update has an impact on
-												// position list becaus of
+												// position list because of
 												// closed positions
-						else if (this.strategyInfo.IsProcessTrade)
+						else if (this.getPositionConfig(this.stockObject.Symbol).tradeProcess)
 							processTrade(); // Account update has an impact on
 											// position list because of closed
 											// positions
@@ -101,7 +104,7 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 	}
 
 	private void getAccountDetails() {
-		primaryAccountInfo = exchangeObject.getAccountDetails(tradeAccountId); // Service
+		primaryAccountInfo = exchangeObject.getAccountDetails(getPrimaryAccountId()); // Service
 																				// call
 																				// 1
 																				// -
@@ -137,12 +140,12 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
              {
                  if (((OandaAccount)primaryAccountInfo).PositionList.Find(obj => obj.Symbol == q.Symbol) == null) // if (!IsAvavilableInPositionList(q.Symbol))
                  {
-                     if (this.strategyInfo.InitialPositionCount > this.strategyInfo.MinQuantity)
+                     if (this.posConfig.initialUnits >= this.posConfig.minQuantity)
                      {
-                         if (this.strategyInfo.orderType == Constants.OrderType.MARKET)
-                             orderObject = new Order(q.Symbol, this.strategyInfo.InitialPositionCount, q.LastTradePrice, Constants.OrderAction.BUY, this.strategyInfo.orderType);
-                         else if (this.stockObject.StrategyData.orderType == Constants.OrderType.LIMIT)
-                             orderObject = new Order(q.Symbol, this.strategyInfo.InitialPositionCount, q.LastTradePrice, Constants.OrderAction.BUY, this.strategyInfo.orderType);
+                         if (this.orderType == Constants.OrderType.MARKET)
+                             orderObject = new Order(q.Symbol, this.posConfig.initialUnits, q.LastTradePrice, Constants.OrderAction.BUY, this.orderType);
+                         else if (this.orderType == Constants.OrderType.LIMIT)
+                             orderObject = new Order(q.Symbol, this.posConfig.initialUnits, q.LastTradePrice, Constants.OrderAction.BUY, this.orderType);
 
                          if (exchangeObject.placeOrder(orderObject))   //Service call 4
                          {
@@ -162,7 +165,7 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
                              {
                                  System.out.println(new Date() + " : Order status " + Constants.OrderState.CANCELLED);
                              }
-                             if (((OandaAccount)primaryAccountInfo).PositionList.size() >= this.strategyInfo.maxPositionCount)
+                             if (((OandaAccount)primaryAccountInfo).PositionList.size() >= this.maxPositionCount)
                                  return;
                          }
                      }
@@ -177,27 +180,27 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 
 	private boolean isReadyToSell() {
 		boolean rtnVal = false;
-		if (strategyInfo.SellMode == Constants.TradeMode.FIXED) {
-			if (((ForexPosition) this.stockObject).UnrealizedPL >= this.strategyInfo.fixedProfitValue)
+		if (posConfig.sellMode == Constants.TradeMode.FIXED) {
+			if (((ForexPosition) this.stockObject).UnrealizedPL >= this.posConfig.fixedProfitValue)
 				rtnVal = true;
-		} else if (strategyInfo.SellMode == Constants.TradeMode.VARIABLE) {
+		} else if (posConfig.sellMode == Constants.TradeMode.VARIABLE) {
 
 		}
 		return rtnVal;
 	}
 
 	private boolean placeSellOrder() {
-		bool rtnVal = false;
+		boolean rtnVal = false;
 		Order orderObject = null;
 
-		if (this.strategyInfo.orderType == Constants.OrderType.MARKET)
+		if (this.orderType == Constants.OrderType.MARKET)
 			orderObject = new Order(this.stockObject.Symbol,
 					this.stockObject.TotalCount, this.currentPrice,
-					Constants.OrderAction.SELL, this.strategyInfo.orderType);
-		else if (this.stockObject.StrategyData.orderType == Constants.OrderType.LIMIT)
+					Constants.OrderAction.SELL, this.orderType);
+		else if (this.orderType == Constants.OrderType.LIMIT)
 			orderObject = new Order(this.stockObject.Symbol,
 					this.stockObject.TotalCount, this.currentPrice,
-					Constants.OrderAction.SELL, this.strategyInfo.orderType);
+					Constants.OrderAction.SELL, this.orderType);
 
 		if (exchangeObject.placeOrder(orderObject)) // Service call 5
 		{
@@ -232,8 +235,8 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 	}
 
 	private boolean isReadyToAddMore() {
-		bool rtnVal = false;
-		if (this.strategyInfo.SellMode == Constants.TradeMode.FIXED) {
+		boolean rtnVal = false;
+		if (this.posConfig.sellMode == Constants.TradeMode.FIXED) {
 			this.currentPrice = exchangeObject.getCurrentPrice(
 					this.stockObject.Symbol, Constants.OrderAction.BUY); // Service
 																			// call
@@ -244,9 +247,9 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 																			// loop
 			float lastPrice = this.stockObject.TradeList.get(this.stockObject.TradeList.size() - 1).PriceBuy;
 			float priceDiff = lastPrice - currentPrice;
-			if (priceDiff > this.strategyInfo.FixedDownPriceDiff)
+			if (priceDiff > this.posConfig.fixedBuyPriceValue)
 				rtnVal = true;
-		} else if (this.strategyInfo.SellMode == Constants.TradeMode.VARIABLE) {
+		} else if (this.posConfig.sellMode == Constants.TradeMode.VARIABLE) {
 
 		}
 		return rtnVal;
@@ -255,7 +258,7 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 	private void addMoreStocks() {
 		int count = 0;
 		Order orderObject = null;
-		if (((ForexPosition) this.stockObject).TradeList.size() < this.strategyInfo.ExtrapolateIndex) {
+		if (((ForexPosition) this.stockObject).TradeList.size() < this.posConfig.extrapolateLevel) {
 
 			count = (int) (this.stockObject.TradeList.get(this.stockObject.TradeList.size() - 1).Count + 1);
 			// ***************************************************************************************
@@ -264,14 +267,14 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 			float expPrice = count * this.currentPrice;
 
 			if (expPrice < margin) {
-				if (this.strategyInfo.orderType == Constants.OrderType.MARKET)
+				if (this.orderType == Constants.OrderType.MARKET)
 					orderObject = new Order(this.stockObject.Symbol, count,
 							this.currentPrice, Constants.OrderAction.BUY,
-							this.strategyInfo.orderType);
-				else if (this.stockObject.StrategyData.orderType == Constants.OrderType.LIMIT)
+							this.orderType);
+				else if (this.orderType == Constants.OrderType.LIMIT)
 					orderObject = new Order(this.stockObject.Symbol, count,
 							this.currentPrice, Constants.OrderAction.BUY,
-							this.strategyInfo.orderType);
+							this.orderType);
 
 				if (exchangeObject.placeOrder(orderObject)) // Service call 7
 				{
@@ -296,7 +299,7 @@ public class Forexpolate extends Strategy implements Runnable, IStrategy {
 		if (this.stockObject.TradeList.size() > 1) {
 			for (int iPos = this.stockObject.TradeList.size() - 1; iPos > 2; iPos--) {
 				this.fxStock = (ForexStock) this.stockObject.TradeList.get(iPos);
-				if (this.fxStock.UnrealizedPL >= this.strategyInfo.FixedTradeProfitValue) {
+				if (this.fxStock.UnrealizedPL >= this.posConfig.fixedProfitValue) {
 					if (exchangeObject.closeTrade(this.fxStock)) // Service call
 																	// 8 - Every
 																	// for loop

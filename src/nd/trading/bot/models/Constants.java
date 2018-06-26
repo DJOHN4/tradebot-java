@@ -2,6 +2,23 @@ package nd.trading.bot.models;
 
 public class Constants {
 	
+	 public static class ThreadProperties
+     {
+         public static final String THREADSLEEP = "ThreadSleep";
+     }
+     public static class Directories
+     {
+         public static final String BASEPATH = "BasePath";
+         public static final String CONFIGPATH = "ConfigPath";
+         public static final String CONFIGFILE = "ConfigFile";
+         public static final String INIFILE = "config.ini";
+     }
+     public static class DB
+     {
+         public static final String SERVERNAME = "ServerName";
+         public static final String DBNAME = "DBName";
+     }
+	
 	public static class OrderState
     {
         public  static final String PENDING = "PENDING";
