@@ -1,0 +1,74 @@
+package nd.trading.utilities;
+
+import java.io.*;
+import java.net.*;
+import java.util.Date;
+
+public class TokenClient extends ApiClient implements IApiClient {
+	// Dictionary<string, string> defaultHeaders = null;
+
+	public TokenClient(AuthInfo authInfo, /* Dictionary<string, string> headers, */
+			boolean addDefaultHeaders) {
+		super(authInfo.baseUrl, addDefaultHeaders);
+		// _authToken = authInfo.Token;
+		// defaultHeaders = headers;
+	}
+
+	private void ClearHeaders() {
+		/*
+		 * base._httpClient.DefaultRequestHeaders.Clear();
+		 * base.ConfigureHttpClient();
+		 * 
+		 * foreach (KeyValuePair<string, string> hdr in defaultHeaders) {
+		 * base._httpClient.DefaultRequestHeaders.Add(hdr.Key, hdr.Value); }
+		 */
+	}
+
+	@Override
+	public String CallApi(String xChangeName, Methods method, String endpoint,
+			boolean isSigned, String parameters, String body) {
+		String rtnVal = "";
+		try {
+			ClearHeaders();
+
+			// Console.WriteLine(DateTime.Now.ToString());
+
+			String finalEndpoint = endpoint
+					+ (parameters == "" ? "" : ("?" + parameters));
+
+			if (isSigned) {
+				parameters += (parameters != "" ? "&timestamp=" : "timestamp=")
+						+ GenerateTimeStamp(new Date());
+			}
+
+			URI baseUri = new URI(this.baseUrl);
+			URI fullUri = new URI(baseUri.getScheme(), baseUri.getAuthority(),
+					baseUri.getPath(), finalEndpoint, null);
+			URL url = fullUri.toURL();
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setDoInput(true);
+			con.setDoOutput(false);
+			con.setRequestMethod(method.toString());
+			con.setRequestProperty("Content-Type", "application/json");
+			if (body != "") {
+				OutputStream os = con.getOutputStream();
+				os.write(body.getBytes());
+				os.flush();
+			}
+
+			if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
+
+				String out = "";
+				while ((out = br.readLine()) != null) {
+					rtnVal += out;
+				}
+			}
+		} catch (Exception ex) {
+
+		}
+
+		return rtnVal;
+	}
+}
