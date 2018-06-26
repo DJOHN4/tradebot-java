@@ -1,0 +1,31 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.*;
+
+public abstract class Exchange implements IExchange {
+
+	
+	 private String Name;
+     private String MarketName;
+     private String[] TickerList;
+    // private List<CurrencyInfo> Currencies;
+     //protected AuthInfo AuthVal;
+     
+     
+	public Exchange(ExchangeConfig config) {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public String getExchangeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public String getMarketName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

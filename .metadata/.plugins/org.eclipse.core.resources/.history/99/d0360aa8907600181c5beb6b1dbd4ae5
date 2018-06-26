@@ -1,0 +1,316 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+import nd.trading.platform.models.ForexStock;
+
+public class Forexpolate extends Strategy implements Runnable, IStrategy {
+	private String lastTransId = "";
+	private ForexStock fxStock;
+	
+	public Forexpolate(StrategyConfig config) {
+		super(config);
+	}
+
+	public String getLastTransId() {
+		return lastTransId;
+	}
+
+	public void setLastTransId(String lastTransId) {
+		this.lastTransId = lastTransId;
+	}
+
+	public ForexStock getFxStock() {
+		return fxStock;
+	}
+
+	public void setFxStock(ForexStock fxStock) {
+		this.fxStock = fxStock;
+	}
+
+	@Override
+	public String getStrategyName() {
+		// TODO Auto-generated method stub
+		return getName();
+	}
+
+	@Override
+	public void setExchangeDetails(IExchange xChange) {
+		setExchangeObject(xChange);
+		
+	}
+
+	@Override
+	public void setStrategyId() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getStrategyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IExchange getExchangeObject() {
+		return getExchangeObject();
+	}
+
+	public void run() {
+		GetAccountDetails();
+		do {
+			UpdateAccountDetails();
+			if (IsEnoughPositionToTrade()) {
+				for (var iPos = ((OandaAccount) PrimaryAccountInfo).PositionList.Count - 1; iPos >= 0; --iPos) {
+					this.StockObject = ((OandaAccount) PrimaryAccountInfo).PositionList[iPos];
+
+					if (IsReadyToSell()) {
+						if (PlaceSellOrder()) // Do we need to call account
+												// update here?
+						{
+							Console.WriteLine(this.StockObject.Symbol
+									+ " Sold at "
+									+ this.StockObject.SellPrice.ToString());
+						}
+					} else {
+						if (IsReadyToAddMore())
+							AddMoreStocks(); // Account update has an impact on
+												// position list becaus of
+												// closed positions
+						else if (this.StratgeyInfo.IsProcessTrade)
+							ProcessTrade(); // Account update has an impact on
+											// position list becaus of closed
+											// positions
+					}
+				}
+			} else
+				AddEnoughPositions();
+
+			Thread.Sleep(Convert
+					.ToInt32(ConfigurationManager.AppSettings["ThreadSleep"]
+							.ToString()));
+		} while (this.ExitLoop == 0);
+	}
+
+	private void GetAccountDetails() {
+		PrimaryAccountInfo = ExchangeObject.GetAccountDetails(TradeAccountId); // Service
+																				// call
+																				// 1
+																				// -
+																				// Once
+																				// while
+																				// starting
+																				// app
+		LastTransId = ((OandaAccount) PrimaryAccountInfo).LastTransactionId;
+
+		for (var iPos = ((OandaAccount) PrimaryAccountInfo).PositionList.Count - 1; iPos >= 0; --iPos) {
+			Console.WriteLine("Bought "
+					+ ((OandaAccount) PrimaryAccountInfo).PositionList[iPos].TotalCount
+					+ " "
+					+ ((OandaAccount) PrimaryAccountInfo).PositionList[iPos].Symbol);
+		}
+	}
+
+	private void UpdateAccountDetails() {
+		ExchangeObject.GetAccountChanges(PrimaryAccountInfo); // Service call 2
+																// - Every
+																// Do-While loop
+																// delay thread
+																// sleep
+	}
+
+	private void AddEnoughPositions()
+     {
+         Order orderObject = null;
+         try
+         {
+             IEnumerable<Quote> quoteList = ExchangeObject.GetQuoteList(null);   //Service call 3  - Initially once and whenever new position added to account based on Max pos count
+             foreach (Quote q in quoteList)
+             {
+                 if (((OandaAccount)PrimaryAccountInfo).PositionList.Find(obj => obj.Symbol == q.Symbol) == null) // if (!IsAvavilableInPositionList(q.Symbol))
+                 {
+                     if (this.StratgeyInfo.InitialPositionCount > this.StratgeyInfo.MinQuantity)
+                     {
+                         if (this.StratgeyInfo.OrderType == Constants.OrderType.MARKET)
+                             orderObject = new Order(q.Symbol, this.StratgeyInfo.InitialPositionCount, q.LastTradePrice, Constants.OrderAction.BUY, this.StratgeyInfo.OrderType);
+                         else if (this.StockObject.StrategyData.OrderType == Constants.OrderType.LIMIT)
+                             orderObject = new Order(q.Symbol, this.StratgeyInfo.InitialPositionCount, q.LastTradePrice, Constants.OrderAction.BUY, this.StratgeyInfo.OrderType);
+
+                         if (ExchangeObject.PlaceOrder(orderObject))   //Service call 4
+                         {
+                             if (orderObject.Status == Constants.OrderState.FILLED)
+                             {
+                                 DataAnalyzer dt = new DataAnalyzer();
+                                 dt.Symbol = orderObject.Symbol;
+                                 Thread newThread = new Thread(dt.SaveActiveTicker);
+                                 newThread.Name = "AnalyzerAdd";
+                                 newThread.Start();
+                             }
+                             else if (orderObject.Status == Constants.OrderState.PENDING)
+                             {
+                                 Console.WriteLine(DateTime.Now + " : Order status " + Constants.OrderState.PENDING);
+                             }
+                             else if (orderObject.Status == Constants.OrderState.CANCELLED)
+                             {
+                                 Console.WriteLine(DateTime.Now + " : Order status " + Constants.OrderState.CANCELLED);
+                             }
+                             if (((OandaAccount)PrimaryAccountInfo).PositionList.Count >= this.StratgeyInfo.MaxPositionCount)
+                                 return;
+                         }
+                     }
+                 }
+             }
+         }
+         catch (Exception ex)
+         {
+             throw;
+         }
+     }
+
+	private bool IsReadyToSell() {
+		bool rtnVal = false;
+		if (StratgeyInfo.SellMode == Constants.TradeMode.FIXED) {
+			if (((ForexPosition) this.StockObject).UnrealizedPL >= this.StratgeyInfo.FixedProfitValue)
+				rtnVal = true;
+		} else if (StratgeyInfo.SellMode == Constants.TradeMode.VARIABLE) {
+
+		}
+		return rtnVal;
+	}
+
+	private bool PlaceSellOrder() {
+		bool rtnVal = false;
+		Order orderObject = null;
+
+		if (this.StratgeyInfo.OrderType == Constants.OrderType.MARKET)
+			orderObject = new Order(this.StockObject.Symbol,
+					this.StockObject.TotalCount, this.CurrentPrice,
+					Constants.OrderAction.SELL, this.StratgeyInfo.OrderType);
+		else if (this.StockObject.StrategyData.OrderType == Constants.OrderType.LIMIT)
+			orderObject = new Order(this.StockObject.Symbol,
+					this.StockObject.TotalCount, this.CurrentPrice,
+					Constants.OrderAction.SELL, this.StratgeyInfo.OrderType);
+
+		if (ExchangeObject.PlaceOrder(orderObject)) // Service call 5
+		{
+			if (orderObject.Status == Constants.OrderState.FILLED) {
+				// Do this in new thread..
+				this.StockObject.TotalCount = orderObject.Count;
+				this.StockObject.SellPrice = orderObject.Price;
+				this.StockObject.TotalRevenue = (orderObject.Count * orderObject.Price)
+						+ orderObject.Brokerage;
+				this.StockObject.TotalSellFee = orderObject.Brokerage;
+				this.StockObject.ProfitnLoss = orderObject.PnL
+						+ orderObject.Brokerage;
+				this.StockObject.ModifiedOn = orderObject.DoneAt;
+				this.StockObject.Status = Constants.PositionState.CLOSED;
+				if (UpdatePositionsForDataAnalysis()) {
+					DataAnalyzer dt = new DataAnalyzer();
+					dt.Symbol = orderObject.Symbol;
+					dt.CloseActiveTicker();
+				} else
+					Console.WriteLine("Error while writing to DB");
+				rtnVal = true;
+			} else if (orderObject.Status == Constants.OrderState.PENDING) {
+				Console.WriteLine(DateTime.Now + " : Order status "
+						+ Constants.OrderState.PENDING);
+			} else if (orderObject.Status == Constants.OrderState.CANCELLED) {
+				Console.WriteLine(DateTime.Now + " : Order status "
+						+ Constants.OrderState.CANCELLED);
+			}
+
+		}
+		return rtnVal;
+	}
+
+	private bool IsReadyToAddMore() {
+		bool rtnVal = false;
+		if (this.StratgeyInfo.SellMode == Constants.TradeMode.FIXED) {
+			this.CurrentPrice = ExchangeObject.GetCurrentPrice(
+					this.StockObject.Symbol, Constants.OrderAction.BUY); // Service
+																			// call
+																			// 6
+																			// -
+																			// every
+																			// for
+																			// loop
+			decimal lastPrice = this.StockObject.TradeList[this.StockObject.TradeList.Count - 1].PriceBuy;
+			decimal priceDiff = lastPrice - CurrentPrice;
+			if (priceDiff > this.StratgeyInfo.FixedDownPriceDiff)
+				rtnVal = true;
+		} else if (this.StratgeyInfo.SellMode == Constants.TradeMode.VARIABLE) {
+
+		}
+		return rtnVal;
+	}
+
+	private void AddMoreStocks() {
+		int count = 0;
+		Order orderObject = null;
+		if (((ForexPosition) this.StockObject).TradeList.Count < this.StratgeyInfo.ExtrapolateIndex) {
+
+			count = Convert
+					.ToInt32(this.StockObject.TradeList[this.StockObject.TradeList.Count - 1].Count) + 1;
+			// ***************************************************************************************
+			// Check enough margin available to buy this units
+			decimal margin = ((OandaAccount) PrimaryAccountInfo).MarginAvailable;
+			decimal expPrice = count * this.CurrentPrice;
+
+			if (expPrice < margin) {
+				if (this.StratgeyInfo.OrderType == Constants.OrderType.MARKET)
+					orderObject = new Order(this.StockObject.Symbol, count,
+							this.CurrentPrice, Constants.OrderAction.BUY,
+							this.StratgeyInfo.OrderType);
+				else if (this.StockObject.StrategyData.OrderType == Constants.OrderType.LIMIT)
+					orderObject = new Order(this.StockObject.Symbol, count,
+							this.CurrentPrice, Constants.OrderAction.BUY,
+							this.StratgeyInfo.OrderType);
+
+				if (ExchangeObject.PlaceOrder(orderObject)) // Service call 7
+				{
+					if (orderObject.Status == "FILLED") {
+						Console.WriteLine("Added More "
+								+ this.StockObject.Symbol + " at "
+								+ this.StockObject.SellPrice.ToString());
+					} else if (orderObject.Status == "PENDING") {
+						Console.WriteLine(DateTime.Now + " : Order status "
+								+ Constants.OrderState.PENDING);
+					} else if (orderObject.Status == "CANCELLED") {
+						Console.WriteLine(DateTime.Now + " : Order status "
+								+ Constants.OrderState.CANCELLED);
+					}
+				} else
+					Console.WriteLine("Buy more stocks failed - Please check");
+			}
+		}
+	}
+
+	private void ProcessTrade() {
+		if (this.StockObject.TradeList.Count > 1) {
+			for (var iPos = this.StockObject.TradeList.Count - 1; iPos > 2; iPos--) {
+				this.FxStock = (ForexStock) this.StockObject.TradeList[iPos];
+				if (this.FxStock.UnrealizedPL >= this.StratgeyInfo.FixedTradeProfitValue) {
+					if (ExchangeObject.CloseTrade(this.FxStock)) // Service call
+																	// 8 - Every
+																	// for loop
+																	// and every
+																	// trade
+																	// loop
+					{
+						this.FxStock.Cost = (this.FxStock.Count * this.FxStock.PriceBuy)
+								+ this.FxStock.FeeBuy;
+						this.FxStock.Revenue = (this.FxStock.Count * this.FxStock.PriceSell)
+								+ this.FxStock.FeeSell;
+						if (DBManager.InsertEntity < ForexStock > (this.FxStock)) {
+							Console.WriteLine("Trade ID: "
+									+ this.FxStock.TradeId
+									+ " Closed, Profit = "
+									+ (FxStock.ProfitnLoss + FxStock.FeeSell));
+						} else
+							Console.WriteLine("Error while writing to DB");
+					}
+				}
+			}
+		}
+	}
+}

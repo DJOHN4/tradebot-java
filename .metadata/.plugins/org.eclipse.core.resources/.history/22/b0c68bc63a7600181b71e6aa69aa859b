@@ -1,0 +1,12 @@
+package nd.trading.bot.objectfactory;
+
+import nd.trading.bot.models.IConfig;
+
+public class ExchangeFactory implements IFactory {
+
+	public <T> T GetObject(IConfig config) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

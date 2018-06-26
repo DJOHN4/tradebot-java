@@ -1,0 +1,38 @@
+package nd.trading.bot.core;
+
+public abstract class Strategy implements IStrategy, Runnable  {
+
+
+	public String GetStrategyName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public void SetExchangeDetails(IExchange xChange) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	public void SetStrategyId() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public String GetStrategyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public IExchange GetExchangeObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	 public void run() {
+	        System.out.println("Hello from a thread!");
+	    }
+
+}

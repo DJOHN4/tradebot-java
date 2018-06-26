@@ -1,0 +1,5 @@
+package nd.trading.bot.models;
+
+public class Constants {
+
+}

@@ -1,0 +1,26 @@
+package nd.trading.bot.core;
+
+import java.util.List;
+import nd.trading.platform.models.*;
+
+
+public interface IExchange {
+	 String getExchangeName();
+     String getMarketName();
+     String[] GetTickerList();
+    // List<CurrencyInfo> GetCurrencyList();
+     float GetCurrentPrice(String symbol, String mode);
+     //decimal GetAvailablePrinciple(string currency);
+     //Quote GetQuote(string symbol);
+     //IEnumerable<Quote> GetQuoteList(string[] tickerList);
+     boolean PlaceOrder(Order order);
+     //Order GetOrderInfo(string orderId);
+     Account GetAccountDetails(String accountId);
+     List<Position> GetOpenPositions();
+     //Position GetOpenPosition(string symbol);
+     List<StockData> GetOpenTrades(String symbol);
+     float GetLastTradePrice(String tradeId);
+     //Transaction GetTransactionInfo(string transId);
+     float GetAvailableMargin();
+     boolean CloseTrade(ForexStock fxS);
+}

@@ -1,0 +1,19 @@
+package nd.trading.bot.objectfactory;
+
+import nd.trading.bot.models.ExchangeConfig;
+import nd.trading.bot.models.IConfig;
+import nd.trading.platform.oanda.OandaExchange;
+
+public class ExchangeFactory implements IFactory {
+
+	public <T> T getObject(IConfig xChangeConfig) {
+		// TODO Auto-generated method stub
+		switch (((ExchangeConfig)xChangeConfig).Name)
+        {
+            case "Oanda": return new OandaExchange((ExchangeConfig)xChangeConfig);
+            default: throw new Exception("Invalid type");
+        }
+		return null;
+	}
+
+}

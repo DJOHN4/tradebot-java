@@ -1,0 +1,31 @@
+package nd.trading.bot.models;
+
+public class Constants {
+	
+	 static class OrderState
+    {
+        public  String PENDING = "PENDING";
+        public  String FILLED = "FILLED";
+        public  String CANCELLED = "CANCELLED";
+    }
+     class OrderAction
+    {
+        public  String BUY = "buy";
+        public  String SELL = "sell";
+    }
+     class OrderType
+    {
+        public  String MARKET = "Market";
+        public  String LIMIT = "Limit";
+    }
+     class TradeMode
+    {
+        public  String FIXED = "FIXED";
+        public  String VARIABLE = "VARIABLE";
+    }
+     class PositionState
+    {
+        public  String CLOSED = "CLOSED";
+    }
+    
+}

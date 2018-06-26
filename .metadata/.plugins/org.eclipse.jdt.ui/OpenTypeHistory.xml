@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=tradebot/src&lt;nd.trading.platform.models{Entity.java[Entity" modifiers="1" timestamp="1529600922101"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.platform.models{Position.java[Position" modifiers="1" timestamp="1529625566642"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.platform.models{Account.java[Account" modifiers="1" timestamp="1529723001472"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.bot.objectfactory{IFactory.java[IFactory" modifiers="513" timestamp="1529685544621"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.bot.core{Strategy.java[Strategy" modifiers="1025" timestamp="1529782820027"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.platform.models{StockData.java[StockData" modifiers="1" timestamp="1529623908399"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.utilities{ApiClient.java[ApiClient" modifiers="1" timestamp="1529718918780"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.utilities{IApiClient.java[IApiClient" modifiers="513" timestamp="1529713860701"/>
+<typeInfo handle="=tradebot/src&lt;nd.trading.bot.models{IConfig.java[IConfig" modifiers="513" timestamp="1529554327359"/>
+</typeInfoHistroy>

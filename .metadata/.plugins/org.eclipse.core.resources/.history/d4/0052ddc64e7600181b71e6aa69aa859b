@@ -1,0 +1,11 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+
+public class Forexpolate extends Strategy {
+	 private String LastTransId="";
+     private ForexStock FxStock;
+
+     public Forexpolate(StrategyConfig config)
+     { super(config);}
+}

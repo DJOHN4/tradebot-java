@@ -1,0 +1,7 @@
+package nd.trading.platform.oanda;
+
+import nd.trading.platform.models.Account;
+
+public class OandaAccount extends Account {
+
+}

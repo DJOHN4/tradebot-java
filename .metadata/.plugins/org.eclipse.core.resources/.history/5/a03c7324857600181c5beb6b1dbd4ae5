@@ -1,0 +1,29 @@
+package nd.trading.utilities;
+
+public class ApiClient implements IApiClient {
+
+	@Override
+	public String CallApi(String xChangeName, Methods method, String endpoint,
+			boolean isSigned, String parameters, String body) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	 public String CreateHttpMethod(String method)
+     {
+        /*     switch (method.ToUpper())
+             {
+                 case "DELETE":
+                     return HttpMethod.Delete;
+                 case "POST":
+                     return HttpMethod.Post;
+                 case "PUT":
+                     return HttpMethod.Put;
+                 case "GET":
+                     return HttpMethod.Get;
+                 default:
+                     throw new NotImplementedException();
+             }*/
+		 return "GET";
+     }
+}

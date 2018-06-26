@@ -1,0 +1,18 @@
+package nd.trading.bot.objectfactory;
+
+import nd.trading.bot.core.Forexpolate;
+import nd.trading.bot.models.IConfig;
+import nd.trading.bot.models.StrategyConfig;
+
+public class StrategyFactory implements IFactory {
+
+	public <T> T getObject(IConfig config) {
+		switch (((StrategyConfig) config).Name) {
+		case "Forexpolate":
+			return (T) new Forexpolate((StrategyConfig) config);
+		default:
+			return null;
+		}
+	}
+
+}

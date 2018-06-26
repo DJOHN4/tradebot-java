@@ -1,0 +1,43 @@
+package nd.trading.db;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class DbManager {
+
+	private static String connectionString = "";
+	public static String DatabaseName = "";
+
+	private static MongoClient client = null;
+	private static MongoDatabase db = null;
+	private MongoCollection col = null;
+
+	public static MongoClient getMongoClient() {
+		if (client == null) {
+			client = new MongoClient(connectionString);
+		}
+
+		return client;
+	}
+
+	public static MongoDatabase getMongoDatabase() {
+		if (db == null) {
+			db = client.getDatabase(DatabaseName);
+		}
+		return db;
+	}
+
+	public static <T> MongoCollection<T> getCollection(T obj) {
+		MongoCollection<T> rtnObj = DbManager.getMongoClient()
+				.getMongoDatabase()
+				.getCollection(obj.getClass().getSimpleName());
+		return rtnObj;
+	}
+
+	public static <T> boolean insertEntity(T entity) {
+		getCollection(entity).insertOne(entity);
+		return true;
+	}
+
+}

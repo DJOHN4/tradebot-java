@@ -1,0 +1,8 @@
+package nd.trading.platform.models;
+
+import org.bson.types.ObjectId;
+
+
+public class Entity {
+	public ObjectId Id;
+}

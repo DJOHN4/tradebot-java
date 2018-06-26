@@ -1,0 +1,15 @@
+package nd.trading.bot.models;
+
+public class StrategyConfig {
+
+	public string Name { get; set; }
+    public string SubName { get; set; }
+    public string AccountId { get; set; }
+    public int MinPositionLevelPercent { get; set; }
+    public int MaxPositionCount { get; set; }
+    public int ExtrapolateValue { get; set; }
+    public string OrderType { get; set; }
+    public bool ActiveStatus { get; set; }
+    public List<PositionConfig> Positions { get; set; }
+    
+}

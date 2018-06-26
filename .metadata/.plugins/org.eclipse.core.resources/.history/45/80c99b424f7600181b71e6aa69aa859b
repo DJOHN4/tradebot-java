@@ -1,0 +1,20 @@
+package nd.trading.bot.core;
+
+import nd.trading.bot.models.StrategyConfig;
+import nd.trading.platform.models.ForexStock;
+
+public class Forexpolate extends Strategy {
+	 private String LastTransId="";
+     private ForexStock FxStock;
+
+     public Forexpolate(StrategyConfig config)
+     { super(config);}
+
+	public String getLastTransId() {
+		return LastTransId;
+	}
+
+	public void setLastTransId(String lastTransId) {
+		LastTransId = lastTransId;
+	}
+}

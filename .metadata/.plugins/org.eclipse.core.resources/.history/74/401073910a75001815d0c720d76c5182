@@ -1,0 +1,19 @@
+package nd.trading.bot.models;
+
+public class PositionConfig {
+	 public String Symbol;
+     public String BuyMode;
+     public String SellMode;
+     public Decimal  FixedProfitValue;
+     public Decimal  FixedBuyPriceValue;
+     public Decimal  PriceDownPercent;
+     public Decimal  SellProfitPercent;
+     public String ThresholdMode;
+     public Decimal  Value;
+     public Decimal  InitialUnits;
+     public Decimal  ExtrapolateLevel;
+     public Decimal  ExtrapolateUnitFactor;
+     public Decimal  PriceRangeStart;
+     public Decimal  PriceRangeEnd;
+     public Decimal  MinQuantity;
+}

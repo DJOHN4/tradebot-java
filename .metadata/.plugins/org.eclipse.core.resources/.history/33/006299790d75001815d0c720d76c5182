@@ -1,0 +1,3 @@
+ThreadSleep=5000
+MongoServer=mongodb://localhost:27017
+DBName=FinonomousIQ

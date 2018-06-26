@@ -1,0 +1,6 @@
+package nd.trading.utilities;
+
+public interface IApiClient {
+	  String CallApi(String xChangeName, Methods method, String endpoint, boolean isSigned = false, String parameters = null, String body = null);
+
+}

@@ -1,0 +1,18 @@
+package nd.trading.bot.models;
+
+import java.util.List;
+
+public class StrategyConfig  implements IConfig {
+
+	public String Name;
+    public String SubName;
+    public String AccountId;
+    public int MinPositionLevelPercent;
+    public int MaxPositionCount;
+    public int ExtrapolateValue;
+    public String OrderType;
+    public boolean ActiveStatus;
+    public List<PositionConfig> Positions;
+	public float fixedProfitValue;
+    
+}

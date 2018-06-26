@@ -1,0 +1,5 @@
+package tradebot;
+
+public class ConfigRoot {
+
+}
